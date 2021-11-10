@@ -17,21 +17,12 @@ const RegisterForm = () => {
   const [loading, setLoading] = React.useState();
   const { signUp, error, setError, googleSignIn } = useAuth();
   const history = useHistory();
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const { email, password, name, confirmPassword } = data;
     if (password !== confirmPassword) {
       return setError("Password don't Match");
     }
-    try {
-      setError("");
-      setLoading(true);
-    await signUp(email, password, name);
-      history.push("/");
-    } catch (err) {
-      console.log(err);
-      setError("Failed To create an account");
-      setLoading(false);
-    }
+    signUp(email, password, name, history);
   };
 
   return (

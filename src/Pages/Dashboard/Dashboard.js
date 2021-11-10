@@ -14,6 +14,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
 import MyOrders from "./UserAccess/MyOrders/MyOrders";
 import Pay from "./UserAccess/Pay/Pay";
 import Review from "./UserAccess/Review/Review";
@@ -23,12 +24,7 @@ import ManageAllOrders from "./AdminAccess/ManageAllOrders/ManageAllOrders";
 import ManageProduct from "./AdminAccess/ManageProduct/ManageProduct";
 import useAuth from "../../Hooks/useAuth";
 
-import {
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-} from "react-router-dom";
+import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -37,7 +33,7 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   let { path, url } = useRouteMatch();
   const { logOut, currentUser } = useAuth();
-  const displayname = currentUser?.user?.displayName;
+  const displayname = currentUser?.displayName;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -48,7 +44,7 @@ function ResponsiveDrawer(props) {
       <Toolbar />
       <Divider />
       <List>
-        <ListItem button component={Link} to={`${url}/myOrders`}>
+        <ListItem button component={Link} to={`${url}`}>
           <ListItemIcon>
             <MailIcon />
             <ListItemText sx={{ ml: 3 }} primary="MyOrders" />
@@ -118,16 +114,38 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{flexGrow:1, textAlign:"left"}}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, textAlign: "left" }}
+          >
             Dashboard
           </Typography>
-          <Button onClick={logOut} variant="contained" color="secondary">
-                  Log out
+          {currentUser?.email ? (
+            <>
+              <Button
+                onClick={logOut}
+                variant="contained"
+                color="secondary"
+                sx={{ mx: 3 }}
+              >
+                Log out
               </Button>
-          <Typography variant="h6" color="inherit">
-            {displayname}
-          </Typography>
-          
+
+              {currentUser?.photoURL ? (
+                <Avatar src={currentUser?.photoURL} />
+              ) : (
+                <Typography variant="subtitle1" color="inherit">
+                  {displayname}
+                </Typography>
+              )}
+            </>
+          ) : (
+            <Button color="inherit" component={Link} to="/login">
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       <Box
@@ -135,7 +153,6 @@ function ResponsiveDrawer(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        
         <Drawer
           container={container}
           variant="temporary"
@@ -191,7 +208,7 @@ function ResponsiveDrawer(props) {
             <ManageProduct />
           </Route>
 
-          <Route path={`${path}/myOrders`}>
+          <Route path={`${path}`}>
             <MyOrders />
           </Route>
           <Route path={`${path}/pay`}>

@@ -6,13 +6,13 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 const NavBar = () => {
   const { logOut, currentUser } = useAuth();
   const displayname = currentUser?.displayName;
-  console.log(displayname)
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -27,27 +27,52 @@ const NavBar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 , textAlign:'left'}}>
+            <Typography
+              variant="h6"
+              component={Link}
+              to="/"
+              color="inherit"
+              sx={{ flexGrow: 1, textAlign: "left", textDecoration: "none" }}
+            >
               Digital Drone
             </Typography>
+            <Button color="inherit" component={Link} to="/">
+              Home
+            </Button>
+            <Button color="inherit" component={Link} to="/explore">
+              Explore
+            </Button>
             <Button color="inherit" component={Link} to="/dashboard">
               Dashboard
             </Button>
-            <Button color="inherit" component={Link} to="/register">
-              Register
-            </Button>
-            {!displayname ? (
-              <Button color="inherit" component={Link} to="/login">
-                Login
-              </Button>
-            ) : (
+
+            {currentUser?.email ? (
               <>
-                <Button onClick={logOut} variant="contained" color="secondary">
+                <Button
+                  onClick={logOut}
+                  variant="contained"
+                  color="secondary"
+                  sx={{ mx: 3 }}
+                >
                   Log out
                 </Button>
-                <Typography variant="h6" color="inherit">
-                  {displayname}
-                </Typography>
+
+                {currentUser?.photoURL ? (
+                  <Avatar src={currentUser?.photoURL} />
+                ) : (
+                  <Typography variant="subtitle1" color="inherit">
+                    {displayname}
+                  </Typography>
+                )}
+              </>
+            ) : (
+              <>
+                <Button color="inherit" component={Link} to="/register">
+                  Register
+                </Button>
+                <Button color="inherit" component={Link} to="/login">
+                  Login
+                </Button>
               </>
             )}
           </Toolbar>

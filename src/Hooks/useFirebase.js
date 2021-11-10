@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 initalizeAuthentication();
 const useFirebase = () => {
   const [currentUser, setCurrentUser] = useState();
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const auth = getAuth();
   const googleProvider = new GoogleAuthProvider();
@@ -24,16 +24,16 @@ const useFirebase = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
-      }else{
-        setCurrentUser({})
+      } else {
+        setCurrentUser({});
       }
     });
     return () => unsubscribe;
   }, []);
 
   // signup with email and password
-  const signUp = async (email, password, username) => {
-    isLoading(true);
+  const signUp = async (email, password, username, history) => {
+    setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         setCurrentUser({ email, displayName: username });
@@ -42,56 +42,60 @@ const useFirebase = () => {
         updateProfile(auth.currentUser, {
           displayName: username,
         });
+        history.replace("/");
       })
       .catch((err) => {
         console.log(err);
         setError("Failed to create and account");
       })
-      .finally(() => isLoading(false));
-    }
-    // login with email and password
-    const logIn = (email, password) => {
-      isLoading(true);
-      signInWithEmailAndPassword(auth, email, password)
-        .then((result) => {
-          setError("");
-        })
-        .catch((err) => {
-          console.log(err);
-          setError("Failed to login");
-        })
-        .finally(() => isLoading(false));
-    };
-
-    // sign in with google
-    const googleSignIn = () => {
-      signInWithPopup(auth, googleProvider)
-        .then((result) => {
-          const user = result.user;
-          setCurrentUser({
-            user,
-          });
-        })
-        .catch((err) => {
-          setError("Failed to login");
-          console.log(err);
-        });
-    };
-
-    // sign out
-    const logOut = () => {
-      return signOut(auth);
-    };
-
-    return {
-      currentUser,
-      setCurrentUser,
-      error,
-      setError,
-      signUp,
-      logIn,
-      logOut,
-      googleSignIn,
-    };
+      .finally(() => setIsLoading(false));
   };
+  // login with email and password
+  const logIn = (email, password, history, location) => {
+    setIsLoading(true);
+    const redirect_uri = location?.state?.from || "/";
+    signInWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        setError("");
+        history.replace(redirect_uri);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Failed to login");
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  // sign in with google
+  const googleSignIn = (history, location) => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const redirect_uri = location?.state?.from || "/";
+        const user = result.user;
+        history.replace(redirect_uri);
+      })
+      .catch((err) => {
+        setError("Failed to login");
+        console.log(err);
+      });
+  };
+
+  // sign out
+  const logOut = () => {
+    return signOut(auth);
+  };
+
+  return {
+    currentUser,
+    isLoading,
+    setIsLoading,
+    setCurrentUser,
+    error,
+    setError,
+    signUp,
+    logIn,
+    logOut,
+    googleSignIn,
+  };
+};
 export default useFirebase;

@@ -12,23 +12,12 @@ import useAuth from "../../Hooks/useAuth";
 import { Link, useHistory, useLocation } from "react-router-dom";
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm();
-  const [loading, setLoading] = React.useState();
   const { logIn, error, setError, googleSignIn } = useAuth();
   const history = useHistory();
   const location = useLocation();
-  const redirect_uri = location?.state?.from || "/";
   const onSubmit = async (data) => {
     const { email, password } = data;
-    try {
-      setError("");
-      setLoading(true);
-      await logIn(email, password);
-      history.push(redirect_uri);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-      setError("Failed To Login");
-    }
+    logIn(email, password, history, location);
   };
 
   return (
@@ -72,7 +61,7 @@ const LoginForm = () => {
             Create an account? <Link to="/register">Register</Link>
           </Typography>
           <Button
-            onClick={googleSignIn}
+            onClick={()=>googleSignIn(history, location)}
             variant="contained"
             color="secondary"
             sx={{ my: 3 }}
