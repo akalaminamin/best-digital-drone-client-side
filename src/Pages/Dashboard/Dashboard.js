@@ -50,13 +50,15 @@ function ResponsiveDrawer(props) {
             <ListItemText sx={{ ml: 3 }} primary="MyOrders" />
           </ListItemIcon>
         </ListItem>
-        <ListItem button component={Link} to={`${url}/Pay`}>
+
+        <ListItem button component={Link} to={`${url}/pay`}>
           <ListItemIcon>
             <MailIcon />
-            <ListItemText sx={{ ml: 3 }} primary="pay" />
+            <ListItemText sx={{ ml: 3 }} primary="Pay" />
           </ListItemIcon>
         </ListItem>
-        <ListItem button component={Link} to={`${url}/Review`}>
+
+        <ListItem button component={Link} to={`${url}/review`}>
           <ListItemIcon>
             <MailIcon />
             <ListItemText sx={{ ml: 3 }} primary="Review" />
@@ -122,6 +124,9 @@ function ResponsiveDrawer(props) {
           >
             Dashboard
           </Typography>
+          <Button color="inherit" component={Link} to="/">
+              Home
+            </Button>
           {currentUser?.email ? (
             <>
               <Button
@@ -207,15 +212,14 @@ function ResponsiveDrawer(props) {
           <Route path={`${path}/manageProduct`}>
             <ManageProduct />
           </Route>
-
-          <Route path={`${path}`}>
-            <MyOrders />
-          </Route>
           <Route path={`${path}/pay`}>
             <Pay />
           </Route>
           <Route path={`${path}/review`}>
             <Review />
+          </Route>
+          <Route path={`${path}`}>
+            <MyOrders />
           </Route>
         </Switch>
       </Box>
