@@ -2,8 +2,6 @@ import "./App.css";
 import Home from "./Pages/Home/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import NavBar from "./Shared/NavBar/NavBar";
 import Register from "./Pages/Register/Register";
 import AuthProvider from "./Contexts/AuthContext";
 import Login from "./Pages/Login/Login";

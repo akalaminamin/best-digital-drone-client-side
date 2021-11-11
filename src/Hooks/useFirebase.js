@@ -10,12 +10,14 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 initalizeAuthentication();
 const useFirebase = () => {
   const [currentUser, setCurrentUser] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
+  const [admin, setAdmin] = useState();
   const auth = getAuth();
   const googleProvider = new GoogleAuthProvider();
 
@@ -27,6 +29,7 @@ const useFirebase = () => {
       } else {
         setCurrentUser({});
       }
+      setIsLoading(false);
     });
     return () => unsubscribe;
   }, []);
@@ -85,8 +88,19 @@ const useFirebase = () => {
     return signOut(auth);
   };
 
+  // admin 
+  useEffect(() => {
+    axios.get("http://localhost:5000/admin").then((res) => {
+      const adminEmail = res.data;
+      const matchAdmin = adminEmail.find(
+        (adEmail) => adEmail.email == currentUser?.email
+      );
+      setAdmin(matchAdmin?.email);
+    });
+  }, [currentUser?.email]);
   return {
     currentUser,
+    admin,
     isLoading,
     setIsLoading,
     setCurrentUser,

@@ -3,6 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import LogoutIcon from '@mui/icons-material/Logout';
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -54,15 +55,15 @@ const NavBar = () => {
                   color="secondary"
                   sx={{ mx: 3 }}
                 >
-                  Log out
+                  <LogoutIcon />
                 </Button>
 
                 {currentUser?.photoURL ? (
                   <Avatar src={currentUser?.photoURL} />
                 ) : (
-                  <Typography variant="subtitle1" color="inherit">
-                    {displayname}
-                  </Typography>
+                  <>
+                <Avatar  sx={{ mx: 2 }}/>
+                </>
                 )}
               </>
             ) : (

@@ -14,8 +14,8 @@ const Services = () => {
     <>
       <h3>Services page</h3>
       <Grid container spacing={2} sx={{my:5}}>
-        {services.slice(0 ,8).map((service) => (
-          <Grid item xs={12} sm={6} md={3} key={service._id}>
+        {services.slice(0 ,6).map((service) => (
+          <Grid item xs={12} sm={6} md={4} key={service._id}>
             <Service service={service}/>
           </Grid>
         ))}

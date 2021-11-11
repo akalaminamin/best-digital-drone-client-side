@@ -7,6 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Fab from "@mui/material/Fab";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import useAuth from "../../../../Hooks/useAuth";
 import axios from "axios";
 
@@ -33,13 +36,25 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function MyOrders() {
   const { currentUser } = useAuth();
   const [orders, setOrders] = useState([]);
+  const [isDelete, setIsDelete] = useState(false);
   useEffect(() => {
     axios.get("http://localhost:5000/orders").then((res) => {
       const data = res.data;
       const matchData = data.filter((dt) => dt?.email == currentUser.email);
       setOrders(matchData);
     });
-  }, []);
+  }, [isDelete]);
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure delete this item?")) {
+      axios.delete(`http://localhost:5000/orders/${id}`).then((res) => {
+        if (res.data.deletedCount) {
+          alert("Delete successful")
+          setIsDelete(true);
+        }
+      });
+    }
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -51,6 +66,7 @@ export default function MyOrders() {
             <StyledTableCell align="left">Address</StyledTableCell>
             <StyledTableCell align="left">Phone</StyledTableCell>
             <StyledTableCell align="left">Status</StyledTableCell>
+            <StyledTableCell align="left">Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -63,6 +79,16 @@ export default function MyOrders() {
               <StyledTableCell align="left">{order.address}</StyledTableCell>
               <StyledTableCell align="left">{order.phone}</StyledTableCell>
               <StyledTableCell align="left">{order.status}</StyledTableCell>
+              <StyledTableCell align="left">
+                <Fab
+                  size="small"
+                  style={{ color: "red", background: "#fff" }}
+                  sx={{ mr: 1 }}
+                  onClick={() => handleDelete(order._id)}
+                >
+                  <DeleteIcon />
+                </Fab>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

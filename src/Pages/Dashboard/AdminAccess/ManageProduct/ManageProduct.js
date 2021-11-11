@@ -12,6 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import useAuth from "../../../../Hooks/useAuth";
 import axios from "axios";
+import UpdateProductDialog from "./UpdateProductDialog";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,7 +37,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function ManageProduct() {
   const { currentUser } = useAuth();
   const [allProducts, setAllProducts] = useState([]);
-  const [isDelete, setIsDelete] = useState(false)
+  const [singleProduct, setSingleProduct] = useState(null);
+  const [isDelete, setIsDelete] = useState(false);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     axios.get("http://localhost:5000/droneServices").then((res) => {
       const data = res.data;
@@ -49,53 +52,71 @@ export default function ManageProduct() {
       axios.delete(`http://localhost:5000/droneServices/${id}`).then((res) => {
         if (res.data.deletedCount) {
           alert("Successfully delete your item");
-          setIsDelete(true)
-        }else{
-            setIsDelete(false)
+          setIsDelete(true);
+        } else {
+          setIsDelete(false);
         }
       });
     }
   };
+  // setOpen(true)
+  const handleProductUpdate = (id) =>{
+    axios.get(`http://localhost:5000/droneServices/${id}`)
+        .then(res => {
+          setSingleProduct(res.data)
+          console.log(id)
+        })
+        setOpen(true)
+  }
+// console.log(singleProduct)
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="left">Name</StyledTableCell>
-            <StyledTableCell align="left">Description</StyledTableCell>
-            <StyledTableCell align="left">Price</StyledTableCell>
-            <StyledTableCell align="left">Action</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {allProducts.map((products) => (
-            <StyledTableRow key={products._id}>
-              <StyledTableCell component="th" scope="row">
-                {products.title}
-              </StyledTableCell>
-              <StyledTableCell align="left">{products.desc}</StyledTableCell>
-              <StyledTableCell align="left">${products.price}</StyledTableCell>
-              <StyledTableCell align="left">
-                <Fab
-                  size="small"
-                  style={{ color: "red", background: "#fff" }}
-                  sx={{ mr: 1 }}
-                  onClick={() => handleDelete(products._id)}
-                >
-                  <DeleteIcon />
-                </Fab>
-                <Fab
-                  size="small"
-                  style={{ color: "green", background: "#fff" }}
-                  sx={{ mr: 1 }}
-                >
-                  <EditIcon />
-                </Fab>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="left">Name</StyledTableCell>
+              <StyledTableCell align="left">Description</StyledTableCell>
+              <StyledTableCell align="left">Price</StyledTableCell>
+              <StyledTableCell align="left">Action</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {allProducts.map((products) => (
+              <>
+              <StyledTableRow key={products._id} key={products._id}>
+                <StyledTableCell component="th" scope="row">
+                  {products.title}
+                </StyledTableCell>
+                <StyledTableCell align="left">{products.desc}</StyledTableCell>
+                <StyledTableCell align="left">
+                  ${products.price}
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  <Fab
+                    size="small"
+                    style={{ color: "red", background: "#fff" }}
+                    sx={{ mr: 1 }}
+                    onClick={() => handleDelete(products._id)}
+                  >
+                    <DeleteIcon />
+                  </Fab>
+                  <Fab
+                    size="small"
+                    style={{ color: "green", background: "#fff" }}
+                    sx={{ mr: 1 }}
+                    onClick={() =>handleProductUpdate(products._id)}
+                  >
+                    <EditIcon />
+                  </Fab>
+                </StyledTableCell>
+              </StyledTableRow>
+              <UpdateProductDialog open={open} setOpen={setOpen} singleProduct={singleProduct}/>
+              </>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }

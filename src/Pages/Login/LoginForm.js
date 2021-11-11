@@ -6,13 +6,14 @@ import {
   Button,
   Alert,
   Typography,
+  CircularProgress
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import { Link, useHistory, useLocation } from "react-router-dom";
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm();
-  const { logIn, error, setError, googleSignIn } = useAuth();
+  const { logIn, error, setError, googleSignIn ,isLoading } = useAuth();
   const history = useHistory();
   const location = useLocation();
   const onSubmit = async (data) => {
@@ -60,6 +61,7 @@ const LoginForm = () => {
           <Typography variant="body1" color="initial">
             Create an account? <Link to="/register">Register</Link>
           </Typography>
+          {isLoading && <CircularProgress />}
           <Button
             onClick={()=>googleSignIn(history, location)}
             variant="contained"

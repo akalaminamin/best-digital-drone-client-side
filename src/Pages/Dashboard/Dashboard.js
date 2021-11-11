@@ -1,94 +1,87 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
+import React, { useState, useEffect } from "react";
+import {AppBar, Box, Button, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Avatar, Typography } from "@mui/material";
+import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
+import LogoutIcon from '@mui/icons-material/Logout';
 import MyOrders from "./UserAccess/MyOrders/MyOrders";
 import Pay from "./UserAccess/Pay/Pay";
-import Review from "./UserAccess/Review/Review";
+import AddReview from "./UserAccess/AddReview/AddReview";
 import AddProduct from "./AdminAccess/AddProduct/AddProduct";
 import MakeAdmin from "./AdminAccess/MakeAdmin/MakeAdmin";
 import ManageAllOrders from "./AdminAccess/ManageAllOrders/ManageAllOrders";
 import ManageProduct from "./AdminAccess/ManageProduct/ManageProduct";
 import useAuth from "../../Hooks/useAuth";
-
+import AdminRoute from "../../Component/AdminRoute/AdminRoute";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 
 const drawerWidth = 240;
 
-function ResponsiveDrawer(props) {
+function Dashboard(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   let { path, url } = useRouteMatch();
-  const { logOut, currentUser } = useAuth();
+  const { logOut, currentUser, admin } = useAuth();
   const displayname = currentUser?.displayName;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+ 
 
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        <ListItem button component={Link} to={`${url}`}>
-          <ListItemIcon>
-            <MailIcon />
-            <ListItemText sx={{ ml: 3 }} primary="MyOrders" />
-          </ListItemIcon>
-        </ListItem>
-
-        <ListItem button component={Link} to={`${url}/pay`}>
-          <ListItemIcon>
-            <MailIcon />
-            <ListItemText sx={{ ml: 3 }} primary="Pay" />
-          </ListItemIcon>
-        </ListItem>
-
-        <ListItem button component={Link} to={`${url}/review`}>
-          <ListItemIcon>
-            <MailIcon />
-            <ListItemText sx={{ ml: 3 }} primary="Review" />
-          </ListItemIcon>
-        </ListItem>
-
-        <ListItem button component={Link} to={`${url}/addProduct`}>
-          <ListItemIcon>
-            <MailIcon />
-            <ListItemText sx={{ ml: 3 }} primary="Add Product" />
-          </ListItemIcon>
-        </ListItem>
-        <ListItem button component={Link} to={`${url}/makeAdmin`}>
-          <ListItemIcon>
-            <MailIcon />
-            <ListItemText sx={{ ml: 3 }} primary="Make Admin" />
-          </ListItemIcon>
-        </ListItem>
-        <ListItem button component={Link} to={`${url}/manageAllOrders`}>
-          <ListItemIcon>
-            <MailIcon />
-            <ListItemText sx={{ ml: 3 }} primary="Manage All Orders" />
-          </ListItemIcon>
-        </ListItem>
-        <ListItem button component={Link} to={`${url}/manageProduct`}>
-          <ListItemIcon>
-            <MailIcon />
-            <ListItemText sx={{ ml: 3 }} primary="Manage Product" />
-          </ListItemIcon>
-        </ListItem>
+        {!admin ? (
+          <>
+            <ListItem button component={Link} to={`${url}`}>
+              <ListItemIcon>
+                <MailIcon />
+                <ListItemText sx={{ ml: 3 }} primary="My Orders" />
+              </ListItemIcon>
+            </ListItem>
+            <ListItem button component={Link} to={`${url}/pay`}>
+              <ListItemIcon>
+                <MailIcon />
+                <ListItemText sx={{ ml: 3 }} primary="Pay" />
+              </ListItemIcon>
+            </ListItem>
+            <ListItem button component={Link} to={`${url}/addReview`}>
+              <ListItemIcon>
+                <MailIcon />
+                <ListItemText sx={{ ml: 3 }} primary="Add Review" />
+              </ListItemIcon>
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem button component={Link} to={`${url}/addProduct`}>
+              <ListItemIcon>
+                <MailIcon />
+                <ListItemText sx={{ ml: 3 }} primary="Add Product" />
+              </ListItemIcon>
+            </ListItem>
+            <ListItem button component={Link} to={`${url}/makeAdmin`}>
+              <ListItemIcon>
+                <MailIcon />
+                <ListItemText sx={{ ml: 3 }} primary="Make Admin" />
+              </ListItemIcon>
+            </ListItem>
+            <ListItem button component={Link} to={`${url}/manageAllOrders`}>
+              <ListItemIcon>
+                <MailIcon />
+                <ListItemText sx={{ ml: 3 }} primary="Manage All Orders" />
+              </ListItemIcon>
+            </ListItem>
+            <ListItem button component={Link} to={`${url}/manageProduct`}>
+              <ListItemIcon>
+                <MailIcon />
+                <ListItemText sx={{ ml: 3 }} primary="Manage Product" />
+              </ListItemIcon>
+            </ListItem>
+          </>
+        )}
       </List>
     </div>
   );
@@ -122,11 +115,11 @@ function ResponsiveDrawer(props) {
             component="div"
             sx={{ flexGrow: 1, textAlign: "left" }}
           >
-            Dashboard
+            {Dashboard}
           </Typography>
           <Button color="inherit" component={Link} to="/">
-              Home
-            </Button>
+            Home
+          </Button>
           {currentUser?.email ? (
             <>
               <Button
@@ -135,15 +128,15 @@ function ResponsiveDrawer(props) {
                 color="secondary"
                 sx={{ mx: 3 }}
               >
-                Log out
+                <LogoutIcon />
               </Button>
 
               {currentUser?.photoURL ? (
                 <Avatar src={currentUser?.photoURL} />
               ) : (
-                <Typography variant="subtitle1" color="inherit">
-                  {displayname}
-                </Typography>
+                <>
+                <Avatar  sx={{ mx: 2 }}/>
+                </>
               )}
             </>
           ) : (
@@ -200,23 +193,23 @@ function ResponsiveDrawer(props) {
       >
         <Toolbar />
         <Switch>
-          <Route path={`${path}/addProduct`}>
+          <AdminRoute path={`${path}/addProduct`}>
             <AddProduct />
-          </Route>
-          <Route path={`${path}/makeAdmin`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/makeAdmin`}>
             <MakeAdmin />
-          </Route>
-          <Route path={`${path}/manageAllOrders`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/manageAllOrders`}>
             <ManageAllOrders />
-          </Route>
-          <Route path={`${path}/manageProduct`}>
+          </AdminRoute>
+          <AdminRoute path={`${path}/manageProduct`}>
             <ManageProduct />
-          </Route>
+          </AdminRoute>
           <Route path={`${path}/pay`}>
             <Pay />
           </Route>
-          <Route path={`${path}/review`}>
-            <Review />
+          <Route path={`${path}/addReview`}>
+            <AddReview />
           </Route>
           <Route path={`${path}`}>
             <MyOrders />
@@ -226,5 +219,4 @@ function ResponsiveDrawer(props) {
     </Box>
   );
 }
-
-export default ResponsiveDrawer;
+export default Dashboard;

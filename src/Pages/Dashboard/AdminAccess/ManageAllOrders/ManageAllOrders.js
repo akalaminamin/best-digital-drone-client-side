@@ -6,9 +6,12 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import useAuth from "../../../../Hooks/useAuth";
 import axios from "axios";
+import Select from '@mui/material/Select';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,12 +36,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function ManageAllOrders() {
   const { currentUser } = useAuth();
   const [orders, setOrders] = useState([]);
+
   useEffect(() => {
     axios.get("http://localhost:5000/orders").then((res) => {
       const data = res.data;
-      setOrders(data)
+      setOrders(data);
     });
   }, []);
+
+  // update status
+  const productStatus = ["Pending", "Rejected", "shipped"];
 
   return (
     <TableContainer component={Paper}>
@@ -61,7 +68,11 @@ export default function ManageAllOrders() {
               <StyledTableCell align="left">{order.email}</StyledTableCell>
               <StyledTableCell align="left">{order.address}</StyledTableCell>
               <StyledTableCell align="left">{order.phone}</StyledTableCell>
-              <StyledTableCell align="left">{order.status}</StyledTableCell>
+              <StyledTableCell align="left">
+              <Button variant="contained" color="warning">
+              {order.status}
+              </Button>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

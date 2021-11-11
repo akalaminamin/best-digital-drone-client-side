@@ -3,6 +3,7 @@ import NavBar from "../../Shared/NavBar/NavBar";
 import { Container } from "@mui/material";
 import Banner from "../../Component/Home/Banner/Banner";
 import Services from "../../Component/Home/Services/Services";
+import Review from "../../Component/Home/Review/Review";
 const Home = () => {
   return (
     <>
@@ -10,7 +11,8 @@ const Home = () => {
       <NavBar />
       <Banner />
       <Container>
-          <Services />
+        <Services />
+        <Review />
       </Container>
     </>
   );
