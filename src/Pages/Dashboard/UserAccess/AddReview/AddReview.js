@@ -1,9 +1,8 @@
 import React from 'react'
-import {Container, Paper, Box, TextField, Rating, Button} from "@mui/material";
+import {Container, Paper, Box, TextField, Button} from "@mui/material";
 import useAuth from "../../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
 
 const AddReview = () => {
     const {currentUser} = useAuth();
@@ -40,7 +39,6 @@ const AddReview = () => {
               required
               {...register("rating", { required: true, maxLength:5 })}
             />
-            {errors.rating && 'maimum rating number 5'}
             <TextField
               margin="dense"
               label="Write your product review"

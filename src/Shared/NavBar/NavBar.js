@@ -33,7 +33,7 @@ const NavBar = () => {
               component={Link}
               to="/"
               color="inherit"
-              sx={{ flexGrow: 1, textAlign: "left", textDecoration: "none" }}
+              sx={{ flexGrow: 1, textAlign: "left", textDecoration: "none", display:"inline" }}
             >
               Digital Drone
             </Typography>

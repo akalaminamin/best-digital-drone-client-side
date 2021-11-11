@@ -40,7 +40,7 @@ const useFirebase = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         setCurrentUser({ email, displayName: username });
-
+        setError("")
         // update porfile
         updateProfile(auth.currentUser, {
           displayName: username,
@@ -73,6 +73,7 @@ const useFirebase = () => {
   const googleSignIn = (history, location) => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
+        setError("");
         const redirect_uri = location?.state?.from || "/";
         const user = result.user;
         history.replace(redirect_uri);
