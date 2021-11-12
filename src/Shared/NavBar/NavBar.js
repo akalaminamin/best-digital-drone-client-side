@@ -10,14 +10,21 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import { makeStyles } from '@mui/styles';
 
+const useStyles = makeStyles({
+  root:{
+    background:"#fff", 
+    color:"#000"
+  }
+})
 const NavBar = () => {
   const { logOut, currentUser } = useAuth();
-  const displayname = currentUser?.displayName;
+  const classes = useStyles();
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+      <Box sx={{ flexGrow: 1}} elevation={5} >
+        <AppBar position="static" sx={{background:"#fff", color:"#000"}}>
           <Toolbar>
             <IconButton
               size="large"

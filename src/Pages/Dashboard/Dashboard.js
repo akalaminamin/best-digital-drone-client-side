@@ -11,6 +11,12 @@ import MakeAdmin from "./AdminAccess/MakeAdmin/MakeAdmin";
 import ManageAllOrders from "./AdminAccess/ManageAllOrders/ManageAllOrders";
 import ManageProduct from "./AdminAccess/ManageProduct/ManageProduct";
 import useAuth from "../../Hooks/useAuth";
+import AddIcon from '@mui/icons-material/Add';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
+import ReviewsIcon from '@mui/icons-material/Reviews';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 import AdminRoute from "../../Component/AdminRoute/AdminRoute";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 
@@ -37,19 +43,19 @@ function Dashboard(props) {
           <>
             <ListItem button component={Link} to={`${url}`}>
               <ListItemIcon>
-                <MailIcon />
+                <ManageAccountsIcon />
                 <ListItemText sx={{ ml: 3 }} primary="My Orders" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/pay`}>
               <ListItemIcon>
-                <MailIcon />
+                <CreditCardIcon />
                 <ListItemText sx={{ ml: 3 }} primary="Pay" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/addReview`}>
               <ListItemIcon>
-                <MailIcon />
+                <ReviewsIcon />
                 <ListItemText sx={{ ml: 3 }} primary="Add Review" />
               </ListItemIcon>
             </ListItem>
@@ -58,25 +64,25 @@ function Dashboard(props) {
           <>
             <ListItem button component={Link} to={`${url}/addProduct`}>
               <ListItemIcon>
-                <MailIcon />
+                <AddIcon />
                 <ListItemText sx={{ ml: 3 }} primary="Add Product" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/makeAdmin`}>
               <ListItemIcon>
-                <MailIcon />
+                <SupervisorAccountIcon />
                 <ListItemText sx={{ ml: 3 }} primary="Make Admin" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/manageAllOrders`}>
               <ListItemIcon>
-                <MailIcon />
+                <ManageAccountsIcon />
                 <ListItemText sx={{ ml: 3 }} primary="Manage All Orders" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/manageProduct`}>
               <ListItemIcon>
-                <MailIcon />
+                <ProductionQuantityLimitsIcon />
                 <ListItemText sx={{ ml: 3 }} primary="Manage Product" />
               </ListItemIcon>
             </ListItem>
@@ -115,7 +121,7 @@ function Dashboard(props) {
             component="div"
             sx={{ flexGrow: 1, textAlign: "left" }}
           >
-            {Dashboard}
+           Dashboard
           </Typography>
           <Button color="inherit" component={Link} to="/">
             Home

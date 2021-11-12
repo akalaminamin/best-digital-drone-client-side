@@ -12,7 +12,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import useAuth from "../../../../Hooks/useAuth";
 import axios from "axios";
-import UpdateProductDialog from "./UpdateProductDialog";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -101,17 +100,8 @@ export default function ManageProduct() {
                   >
                     <DeleteIcon />
                   </Fab>
-                  <Fab
-                    size="small"
-                    style={{ color: "green", background: "#fff" }}
-                    sx={{ mr: 1 }}
-                    onClick={() =>handleProductUpdate(products._id)}
-                  >
-                    <EditIcon />
-                  </Fab>
                 </StyledTableCell>
               </StyledTableRow>
-              <UpdateProductDialog open={open} setOpen={setOpen} singleProduct={singleProduct}/>
               </>
             ))}
           </TableBody>

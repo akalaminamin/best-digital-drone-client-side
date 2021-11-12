@@ -4,6 +4,7 @@ import { Container } from "@mui/material";
 import Banner from "../../Component/Home/Banner/Banner";
 import Services from "../../Component/Home/Services/Services";
 import Review from "../../Component/Home/Review/Review";
+import Footer from "../../Shared/Footer/Footer"
 const Home = () => {
   return (
     <>
@@ -13,6 +14,7 @@ const Home = () => {
       <Container>
         <Services />
         <Review />
+        <Footer />
       </Container>
     </>
   );
