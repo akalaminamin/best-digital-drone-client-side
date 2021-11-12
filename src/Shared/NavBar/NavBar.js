@@ -3,28 +3,72 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
-import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
+import { useTheme } from "@mui/material";
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import {Link} from "react-router-dom";
 
-const useStyles = makeStyles({
-  root:{
-    background:"#fff", 
-    color:"#000"
-  }
-})
 const NavBar = () => {
   const { logOut, currentUser } = useAuth();
-  const classes = useStyles();
+  const theme = useTheme();
+  const useStyles = makeStyles({
+    navMenu: {
+      background: "#fff !important",
+      color: "#000 !important",
+    },
+    navIcon: {
+      [theme.breakpoints.up("sm")]: {
+        display: "none !important",
+      },
+    },
+    NavItemContainer: {
+      [theme.breakpoints.down("sm")]: {
+        display: "none !important ",
+      },
+    },
+  });
+  const { navMenu, navIcon, navLogo, NavItemContainer } = useStyles();
+  const [state, setState] = React.useState(false);
+
+  const list =(
+    <Box
+      sx={{ width: 200 }}
+      role="presentation"
+    >
+      <Divider />
+      <List>
+          <ListItem button component={Link}
+              to="/">
+            <ListItemText primary="Home"/>
+          </ListItem>
+          <Divider />
+          <ListItem button component={Link}
+              to="/explore">
+            <ListItemText primary="Explore"/>
+          </ListItem>
+          <Divider />
+          <ListItem button component={Link}
+              to="/dashboard">
+            <ListItemText primary="Dashboard"/>
+          </ListItem>
+          <Divider />
+      </List>
+    </Box>
+  );
   return (
     <>
-      <Box sx={{ flexGrow: 1}} elevation={5} >
-        <AppBar position="static" sx={{background:"#fff", color:"#000"}}>
+      <Box sx={{ flexGrow: 1 }} elevation={5}>
+        <AppBar position="static" className={navMenu}>
           <Toolbar>
             <IconButton
               size="large"
@@ -32,6 +76,8 @@ const NavBar = () => {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
+              className={navIcon}
+              onClick={() => setState(true)}
             >
               <MenuIcon />
             </IconButton>
@@ -40,20 +86,27 @@ const NavBar = () => {
               component={Link}
               to="/"
               color="inherit"
-              sx={{ flexGrow: 1, textAlign: "left", textDecoration: "none", display:"inline" }}
+              className={navLogo}
+              sx={{
+                flexGrow: 1,
+                textAlign: "left",
+                textDecoration: "none",
+                display: "inline",
+              }}
             >
               Digital Drone
             </Typography>
-            <Button color="inherit" component={Link} to="/">
-              Home
-            </Button>
-            <Button color="inherit" component={Link} to="/explore">
-              Explore
-            </Button>
-            <Button color="inherit" component={Link} to="/dashboard">
-              Dashboard
-            </Button>
-
+            <Box className={NavItemContainer}>
+              <Button color="inherit" component={Link} to="/">
+                Home
+              </Button>
+              <Button color="inherit" component={Link} to="/explore">
+                Explore
+              </Button>
+              <Button color="inherit" component={Link} to="/dashboard">
+                Dashboard
+              </Button>
+            </Box>
             {currentUser?.email ? (
               <>
                 <Button
@@ -69,8 +122,8 @@ const NavBar = () => {
                   <Avatar src={currentUser?.photoURL} />
                 ) : (
                   <>
-                <Avatar  sx={{ mx: 2 }}/>
-                </>
+                    <Avatar sx={{ mx: 2 }} />
+                  </>
                 )}
               </>
             ) : (
@@ -83,9 +136,20 @@ const NavBar = () => {
                 </Button>
               </>
             )}
+            
           </Toolbar>
         </AppBar>
       </Box>
+      <div>
+        <React.Fragment>
+          <Drawer
+            open={state}
+            onClose={() => setState(false)}
+          >
+            {list}
+          </Drawer>
+        </React.Fragment>
+    </div>
     </>
   );
 };
