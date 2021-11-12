@@ -21,7 +21,7 @@ const AddProduct = () => {
     <Paper
       component={Box}
       elevation={4}
-      sx={{ width: "80%", mx: "auto" }}
+      sx={{ minWidth: { xs: "100%", md: "60%" }, mx: "auto" }}
       p={4}
     >
       <Grid container spacing={2} component="form" onSubmit={handleSubmit(onSubmit)}>

@@ -182,6 +182,8 @@ const {listItemColor, listItemIconColor} = useStyles();
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              background:"darkblue",
+              color:"#fff"
             },
           }}
         >

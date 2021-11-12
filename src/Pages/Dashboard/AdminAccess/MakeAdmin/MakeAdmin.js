@@ -21,7 +21,7 @@ const MakeAdmin = () => {
       component={Box}
       elevation={4}
       p={4}
-      sx={{ width: "70%", mx: "auto" }}
+      sx={{ minWidth: { xs: "100%", md: "80%" }, mx: "auto" }}
     >
       <Box
         component="form"

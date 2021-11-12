@@ -58,7 +58,7 @@ export default function MyOrders() {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Table sx={{ minWidth: {xs:"auto", md:700}}}  aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell align="left">Name</StyledTableCell>
