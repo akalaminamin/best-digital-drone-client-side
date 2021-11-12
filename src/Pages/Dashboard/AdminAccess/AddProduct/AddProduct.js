@@ -1,14 +1,14 @@
-import React from "react";  
-import { Paper, Box, TextField, Grid, Button } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Box, Button, Grid, Paper, TextField } from "@mui/material";
 import axios from "axios";
+import React from "react";
+import { useForm } from "react-hook-form";
 
 
 
 const AddProduct = () => {
   const { register, handleSubmit, errors, reset } = useForm();
   const onSubmit = data =>{
-    axios.post("http://localhost:5000/addProduct", data)
+    axios.post("https://enigmatic-stream-51586.herokuapp.com/addProduct", data)
       .then(res => {
         if(res.data.acknowledged){
           alert("Data success fully added");

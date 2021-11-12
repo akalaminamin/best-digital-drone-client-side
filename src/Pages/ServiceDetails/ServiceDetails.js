@@ -1,18 +1,12 @@
+import {
+    Box,
+    Button, Card,
+    CardActions, CardContent, CardMedia, Container, Grid,
+    TextField, Typography
+} from "@mui/material";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import {
-  Container,
-  Typography,
-  CardMedia,
-  CardContent,
-  Card,
-  CardActions,
-  Grid,
-  TextField,
-  Box,
-  Button
-} from "@mui/material";
 import ParchaseDialog from "../../Component/ParchaseDialog/ParchaseDialog";
 import NavBar from "../../Shared/NavBar/NavBar";
 
@@ -22,7 +16,7 @@ const ServiceDetails = () => {
   const [singleService, setSingleService] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/droneServices`).then((res) => {
+    axios.get(`https://enigmatic-stream-51586.herokuapp.com/droneServices`).then((res) => {
       setServiceDetail(res.data);
     });
   }, []);

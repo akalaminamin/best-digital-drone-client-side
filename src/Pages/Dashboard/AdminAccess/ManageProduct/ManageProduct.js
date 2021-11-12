@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Fab from "@mui/material/Fab";
+import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,10 +8,8 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Fab from "@mui/material/Fab";
-import Paper from "@mui/material/Paper";
-import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,14 +35,14 @@ export default function ManageProduct() {
   const [allProducts, setAllProducts] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
   useEffect(() => {
-    axios.get("http://localhost:5000/droneServices").then((res) => {
+    axios.get("https://enigmatic-stream-51586.herokuapp.com/droneServices").then((res) => {
       const data = res.data;
       setAllProducts(data);
     });
   }, [isDelete]);
   const handleDelete = (id) => {
     if (window.confirm("Are your sure delete this item?")) {
-      axios.delete(`http://localhost:5000/droneServices/${id}`).then((res) => {
+      axios.delete(`https://enigmatic-stream-51586.herokuapp.com/droneServices/${id}`).then((res) => {
         if (res.data.deletedCount) {
           alert("Successfully delete your item");
           setIsDelete(true);

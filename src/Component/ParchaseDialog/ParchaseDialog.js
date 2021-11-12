@@ -1,16 +1,11 @@
-import React from "react";
-import useAuth from "../../Hooks/useAuth";
-import { useForm } from "react-hook-form";
-import axios from "axios";
 import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
-  Box,
-  Divider,
+    Box, Button,
+    Dialog, DialogContent, DialogTitle, Divider, TextField
 } from "@mui/material";
+import axios from "axios";
+import React from "react";
+import { useForm } from "react-hook-form";
+import useAuth from "../../Hooks/useAuth";
 const ParchaseDialog = ({ open, setOpen }) => {
   const { register, handleSubmit, errors, reset } = useForm();
   const { currentUser } = useAuth();
@@ -20,7 +15,7 @@ const ParchaseDialog = ({ open, setOpen }) => {
   const onSubmit = (data) => {
     data.status = "pending"
     setOpen(false);
-    axios.post(`http://localhost:5000/orders`, data).then((res) => {
+    axios.post(`https://enigmatic-stream-51586.herokuapp.com/orders`, data).then((res) => {
         if (res.data.acknowledged) {
           alert("Your order is successfull");
           reset();

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import Service from "../../Component/Home/Services/Service/Service";
-import NavBar from "../../Shared/NavBar/NavBar";
-import { Grid, Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Service from "../../Component/Home/Services/Service/Service";
 import Footer from "../../Shared/Footer/Footer";
+import NavBar from "../../Shared/NavBar/NavBar";
 
 const Explore = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/droneServices")
+      .get("https://enigmatic-stream-51586.herokuapp.com/droneServices")
       .then((res) => setServices(res.data));
   });
   return (

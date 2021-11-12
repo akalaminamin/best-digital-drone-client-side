@@ -1,16 +1,9 @@
-import initalizeAuthentication from "../firebase/firebase.init";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  updateProfile,
-  signOut,
-  onAuthStateChanged,
-  signInWithPopup,
-} from "firebase/auth";
-import { useState, useEffect } from "react";
 import axios from "axios";
+import {
+    createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile
+} from "firebase/auth";
+import { useEffect, useState } from "react";
+import initalizeAuthentication from "../firebase/firebase.init";
 
 initalizeAuthentication();
 const useFirebase = () => {
@@ -91,7 +84,7 @@ const useFirebase = () => {
 
   // admin 
   useEffect(() => {
-    axios.get("http://localhost:5000/admin").then((res) => {
+    axios.get("https://enigmatic-stream-51586.herokuapp.com/admin").then((res) => {
       const adminEmail = res.data;
       const matchAdmin = adminEmail.find(
         (adEmail) => adEmail.email == currentUser?.email

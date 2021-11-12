@@ -1,18 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import {
-  Grid,
-  Card,
-  Typography,
-  CardContent,
-  Rating,
-  Box,
-  Divider,
-  Container,
-  Avatar,
+    Avatar, Box, Card, CardContent, Container, Divider, Grid, Rating, Typography
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import reviewBg from "../../../Images/drone-dotted-map-1.png";
 const useStyles = makeStyles({
   root: {
@@ -22,7 +14,7 @@ const useStyles = makeStyles({
 const Review = () => {
   const [userReview, setUserReview] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:5000/review`).then((res) => {
+    axios.get(`https://enigmatic-stream-51586.herokuapp.com/review`).then((res) => {
       setUserReview(res.data);
     });
   }, []);

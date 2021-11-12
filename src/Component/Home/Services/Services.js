@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Service from "./Service/Service"
-import { Grid, Container, Box, Divider, Typography } from "@mui/material";
+import { Box, Container, Divider, Grid, Typography } from "@mui/material";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Service from "./Service/Service";
 
 const Services = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/droneServices")
+      .get("https://enigmatic-stream-51586.herokuapp.com/droneServices")
       .then((res) => setServices(res.data));
   });
   return (

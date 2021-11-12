@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Fab from "@mui/material/Fab";
+import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -6,12 +8,9 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Fab from "@mui/material/Fab";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import useAuth from "../../../../Hooks/useAuth";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import useAuth from "../../../../Hooks/useAuth";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,7 +37,7 @@ export default function MyOrders() {
   const [orders, setOrders] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
   useEffect(() => {
-    axios.get("http://localhost:5000/orders").then((res) => {
+    axios.get("https://enigmatic-stream-51586.herokuapp.com/orders").then((res) => {
       const data = res.data;
       const matchData = data.filter((dt) => dt?.email == currentUser.email);
       setOrders(matchData);
@@ -47,7 +46,7 @@ export default function MyOrders() {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure delete this item?")) {
-      axios.delete(`http://localhost:5000/orders/${id}`).then((res) => {
+      axios.delete(`https://enigmatic-stream-51586.herokuapp.com/orders/${id}`).then((res) => {
         if (res.data.deletedCount) {
           alert("Delete successful")
           setIsDelete(true);

@@ -1,14 +1,14 @@
-import React from "react";
-import { Paper, Box, TextField, Button } from "@mui/material";
-import useAuth from "../../../../Hooks/useAuth";
-import { useForm } from "react-hook-form";
+import { Box, Button, Paper, TextField } from "@mui/material";
 import axios from "axios";
+import React from "react";
+import { useForm } from "react-hook-form";
+import useAuth from "../../../../Hooks/useAuth";
 
 const MakeAdmin = () => {
   const { register, handleSubmit, errors, reset } = useForm();
   const { currentUser } = useAuth();
   const onSubmit = data =>{
-    axios.post(`http://localhost:5000/admin`, data)
+    axios.post(`https://enigmatic-stream-51586.herokuapp.com/admin`, data)
       .then(res => {
         if(res.data.acknowledged){
           alert("Admin is successfully added");
