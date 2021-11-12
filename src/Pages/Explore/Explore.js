@@ -3,6 +3,7 @@ import Service from "../../Component/Home/Services/Service/Service";
 import NavBar from "../../Shared/NavBar/NavBar";
 import { Grid, Container } from "@mui/material";
 import axios from "axios";
+import Footer from "../../Shared/Footer/Footer";
 
 const Explore = () => {
   const [services, setServices] = useState([]);
@@ -23,6 +24,7 @@ const Explore = () => {
           ))}
         </Grid>
       </Container>
+      <Footer/>
     </>
   );
 };
