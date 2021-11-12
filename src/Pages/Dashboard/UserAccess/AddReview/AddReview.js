@@ -8,6 +8,7 @@ const AddReview = () => {
     const {currentUser} = useAuth();
     const { register, handleSubmit, errors, reset } = useForm();
     const onSubmit = (data) => {
+      data.photo = currentUser?.photoURL;
         axios.post(`http://localhost:5000/review`, data).then((res) => {
             if (res.data.acknowledged) {
               alert("Thanks for your valuable feedback");
@@ -28,6 +29,15 @@ const AddReview = () => {
               variant="filled"
               required
               {...register("name", { required: true })}
+            />
+            <TextField
+              margin="dense"
+              label="Your Position"
+              type="text"
+              fullWidth
+              variant="filled"
+              required
+              {...register("position", { required: true })}
             />
             <TextField
               margin="dense"

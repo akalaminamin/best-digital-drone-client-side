@@ -42,19 +42,19 @@ const ServiceDetails = () => {
     <>
       <NavBar />
       <Container>
-        <Grid container spacing={2} sx={{ mt: 4 }}>
+        <Grid container spacing={2} sx={{ mt: 4, textAlign:"left" }}>
           <Grid item xs={12} md={9}>
             <Card elevation={0}>
-              <CardMedia component="img" image={image_url} alt="drone" />
+              <CardMedia component="img" sx={{height:"500px"}} image={image_url} alt="drone" />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h4" component="div">
                   {title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" sx={{color:"rgba(34, 45, 53, 0.7)"}}>
                   {desc}
                 </Typography>
-                <Typography variant="subtitle2" color="text.success">
-                  {price}
+                <Typography variant="h6" color="text.success">
+                  $ {price}
                 </Typography>
               </CardContent>
               <CardActions>

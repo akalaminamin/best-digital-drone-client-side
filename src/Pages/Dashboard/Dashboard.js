@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {AppBar, Box, Button, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Avatar, Typography } from "@mui/material";
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from '@mui/icons-material/Logout';
 import MyOrders from "./UserAccess/MyOrders/MyOrders";
