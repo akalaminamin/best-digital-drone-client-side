@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     minHeight: "90vh",
-    background: `linear-gradient(100deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${bannerBg}) no-repeat center/cover`,
+    background: `linear-gradient(100deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),url(${bannerBg}) no-repeat center/cover`,
     display: "flex",
     alignItems: "center",
   },
@@ -37,7 +37,8 @@ const Banner = () => {
             <Button
             component={Link}
               variant="contained"
-              color="success"
+              color="secondary"
+              size="large"
               to="/explore"
               sx={{ mx: 2 }}
               paragraph
@@ -48,8 +49,9 @@ const Banner = () => {
             component={Link}
             to="/explore"
               variant="contained"
-              color="success"
+              color="secondary"
               sx={{ mx: 2 }}
+              size="large"
               paragraph
             >
               All Services
