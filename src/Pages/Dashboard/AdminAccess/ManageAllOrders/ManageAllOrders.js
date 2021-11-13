@@ -51,7 +51,8 @@ export default function ManageAllOrders() {
   const handleStatus = (id) => {
     if (window.confirm("Are you update this status?")) {
       const matchData = orders.find((order) => order._id === id);
-      axios.put(`http://localhost:5000/orders/${id}`, matchData).then((res) => {
+      axios.put(`https://enigmatic-stream-51586.herokuapp.com/orders/${id}`, matchData).then((res) => {
+        console.log(res)
         if (res.data.modifiedCount) {
           alert("successfully update status");
           setIsDelete(true);
