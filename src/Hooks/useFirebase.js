@@ -49,7 +49,7 @@ const useFirebase = () => {
   // login with email and password
   const logIn = (email, password, history, location) => {
     setIsLoading(true);
-    const redirect_uri = location?.state?.from || "/dashboard";
+    const redirect_uri = location?.state?.from || "/";
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         setError("");
@@ -67,7 +67,7 @@ const useFirebase = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         setError("");
-        const redirect_uri = location?.state?.from || "/dashboard";
+        const redirect_uri = location?.state?.from || "/";
         const user = result.user;
         history.replace(redirect_uri);
       })
