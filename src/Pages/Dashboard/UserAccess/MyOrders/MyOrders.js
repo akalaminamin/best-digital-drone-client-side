@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import TableRow from "@mui/material/TableRow";
+import Button from "@mui/material/Button";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
@@ -40,68 +41,81 @@ export default function MyOrders() {
   const [orders, setOrders] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
   useEffect(() => {
-    axios.get("https://enigmatic-stream-51586.herokuapp.com/orders").then((res) => {
-      const data = res.data;
-      const matchData = data.filter((dt) => dt?.email == currentUser.email);
-      setOrders(matchData);
-    });
+    axios
+      .get("https://enigmatic-stream-51586.herokuapp.com/orders")
+      .then((res) => {
+        const data = res.data;
+        const matchData = data.filter((dt) => dt?.email == currentUser.email);
+        setOrders(matchData);
+      });
   }, [isDelete]);
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure delete this item?")) {
-      axios.delete(`https://enigmatic-stream-51586.herokuapp.com/orders/${id}`).then((res) => {
-        if (res.data.deletedCount) {
-          alert("Delete successful")
-          setIsDelete(true);
-        }
-      });
+      axios
+        .delete(`https://enigmatic-stream-51586.herokuapp.com/orders/${id}`)
+        .then((res) => {
+          if (res.data.deletedCount) {
+            alert("Delete successful");
+            setIsDelete(true);
+          }
+        });
     }
   };
 
   return (
     <Container>
-      <Typography variant="h4" component={Box} sx={{my:2}}>
+      <Typography variant="h4" component={Box} sx={{ my: 2 }}>
         My Order
       </Typography>
-      
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: {xs:"auto", md:700}}}  aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="left">Name</StyledTableCell>
-            <StyledTableCell align="left">Email ID</StyledTableCell>
-            <StyledTableCell align="left">Address</StyledTableCell>
-            <StyledTableCell align="left">Phone</StyledTableCell>
-            <StyledTableCell align="left">Status</StyledTableCell>
-            <StyledTableCell align="left">Action</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {orders.map((order) => (
-            <StyledTableRow key={order._id}>
-              <StyledTableCell component="th" scope="row">
-                {order.name}
-              </StyledTableCell>
-              <StyledTableCell align="left">{order.email}</StyledTableCell>
-              <StyledTableCell align="left">{order.address}</StyledTableCell>
-              <StyledTableCell align="left">{order.phone}</StyledTableCell>
-              <StyledTableCell align="left">{order.status}</StyledTableCell>
-              <StyledTableCell align="left">
-                <Fab
-                  size="small"
-                  style={{ color: "red", background: "#fff" }}
-                  sx={{ mr: 1 }}
-                  onClick={() => handleDelete(order._id)}
-                >
-                  <DeleteIcon />
-                </Fab>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    </Container>
 
+      <TableContainer component={Paper}>
+        <Table
+          sx={{ minWidth: { xs: "auto", md: 700 } }}
+          aria-label="customized table"
+        >
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="left">Name</StyledTableCell>
+              <StyledTableCell align="left">Email ID</StyledTableCell>
+              <StyledTableCell align="left">Address</StyledTableCell>
+              <StyledTableCell align="left">Phone</StyledTableCell>
+              <StyledTableCell align="left">Status</StyledTableCell>
+              <StyledTableCell align="left">Action</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {orders.map((order) => (
+              <StyledTableRow key={order._id}>
+                <StyledTableCell component="th" scope="row">
+                  {order.name}
+                </StyledTableCell>
+                <StyledTableCell align="left">{order.email}</StyledTableCell>
+                <StyledTableCell align="left">{order.address}</StyledTableCell>
+                <StyledTableCell align="left">{order.phone}</StyledTableCell>
+                <StyledTableCell align="left">
+                  <Button
+                    variant="contained"
+                    color={order.status === "pending" ? "warning" : "success"}
+                  >
+                    {order.status}
+                  </Button>
+                </StyledTableCell>
+                <StyledTableCell align="left">
+                  <Fab
+                    size="small"
+                    style={{ color: "red", background: "#fff" }}
+                    sx={{ mr: 1 }}
+                    onClick={() => handleDelete(order._id)}
+                  >
+                    <DeleteIcon />
+                  </Fab>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 }

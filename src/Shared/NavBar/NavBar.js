@@ -94,7 +94,7 @@ const NavBar = () => {
                 display: "inline",
               }}
             >
-              Digital Drone
+              DIGITAL DRONE
             </Typography>
             <Box className={NavItemContainer}>
               <Button color="inherit" component={Link} to="/">

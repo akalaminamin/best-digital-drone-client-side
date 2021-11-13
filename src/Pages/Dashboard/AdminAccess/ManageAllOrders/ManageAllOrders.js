@@ -14,7 +14,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
 
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -36,61 +35,78 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function ManageAllOrders() {
-  const { currentUser } = useAuth();
   const [orders, setOrders] = useState([]);
+  const [isDelete, setIsDelete] = useState(null);
 
   useEffect(() => {
-    axios.get("https://enigmatic-stream-51586.herokuapp.com/orders").then((res) => {
-      const data = res.data;
-      setOrders(data);
-    });
-  }, []);
+    axios
+      .get("https://enigmatic-stream-51586.herokuapp.com/orders")
+      .then((res) => {
+        const data = res.data;
+        setOrders(data);
+      });
+  }, [isDelete]);
 
   // update status
-  const productStatus = ["Pending", "Rejected", "shipped"];
-  
-  const handleStatus = (id) =>{
-    orders.status = "Shipped";
-    axios.put(`http://localhost:5000/${id}`, orders.status)
-      .then(res => console.log(res))
-  }
+  const handleStatus = (id) => {
+    if (window.confirm("Are you update this status?")) {
+      const matchData = orders.find((order) => order._id === id);
+      axios.put(`http://localhost:5000/orders/${id}`, matchData).then((res) => {
+        if (res.data.modifiedCount) {
+          alert("successfully update status");
+          setIsDelete(true);
+        } else {
+          setIsDelete(false);
+        }
+      });
+    }
+  };
   return (
     <>
-    <Container>
-    <Typography variant="h4" component={Box} sx={{my:2}}>
-        Manage Order
-      </Typography>
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth:{xs:"auto", md:700} }} arial-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="left">Name</StyledTableCell>
-            <StyledTableCell align="left">Email ID</StyledTableCell>
-            <StyledTableCell align="left">Address</StyledTableCell>
-            <StyledTableCell align="left">Phone</StyledTableCell>
-            <StyledTableCell align="left">Status</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {orders.map((order) => (
-            <StyledTableRow key={order._id}>
-              <StyledTableCell component="th" scope="row">
-                {order.name}
-              </StyledTableCell>
-              <StyledTableCell align="left">{order.email}</StyledTableCell>
-              <StyledTableCell align="left">{order.address}</StyledTableCell>
-              <StyledTableCell align="left">{order.phone}</StyledTableCell>
-              <StyledTableCell align="left">
-              <Button variant="contained" color="warning" onClick={() =>handleStatus(order._id)}>
-              {order.status}
-              </Button>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    </Container>
+      <Container>
+        <Typography variant="h4" component={Box} sx={{ my: 2 }}>
+          Manage Order
+        </Typography>
+        <TableContainer component={Paper}>
+          <Table
+            sx={{ minWidth: { xs: "auto", md: 700 } }}
+            arial-label="customized table"
+          >
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="left">Name</StyledTableCell>
+                <StyledTableCell align="left">Email ID</StyledTableCell>
+                <StyledTableCell align="left">Address</StyledTableCell>
+                <StyledTableCell align="left">Phone</StyledTableCell>
+                <StyledTableCell align="left">Status</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {orders.map((order) => (
+                <StyledTableRow key={order._id}>
+                  <StyledTableCell component="th" scope="row">
+                    {order.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">{order.email}</StyledTableCell>
+                  <StyledTableCell align="left">
+                    {order.address}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">{order.phone}</StyledTableCell>
+                  <StyledTableCell align="left">
+                    <Button
+                      variant="contained"
+                      color={order.status == "pending" ? "warning" : "success"}
+                      onClick={() => handleStatus(order._id)}
+                    >
+                      {order.status}
+                    </Button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
     </>
   );
 }
