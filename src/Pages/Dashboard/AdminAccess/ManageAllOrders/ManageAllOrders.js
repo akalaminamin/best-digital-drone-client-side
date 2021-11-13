@@ -2,9 +2,12 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
+import Box from "@mui/material/Box";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import axios from "axios";
@@ -47,6 +50,11 @@ export default function ManageAllOrders() {
   const productStatus = ["Pending", "Rejected", "shipped"];
 
   return (
+    <>
+    <Container>
+    <Typography variant="h4" component={Box} sx={{my:2}}>
+        Manage Order
+      </Typography>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth:{xs:"auto", md:700} }} arial-label="customized table">
         <TableHead>
@@ -77,5 +85,7 @@ export default function ManageAllOrders() {
         </TableBody>
       </Table>
     </TableContainer>
+    </Container>
+    </>
   );
 }

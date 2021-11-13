@@ -10,7 +10,7 @@ const PrivateRoute = ({ children, ...rest }) => {
     <h2>Loading...</h2>
     return "";
   }
-  console.log(currentUser)
+  
   return (
     <Route
       {...rest}

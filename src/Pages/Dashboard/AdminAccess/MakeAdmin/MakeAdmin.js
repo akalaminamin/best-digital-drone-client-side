@@ -1,4 +1,4 @@
-import { Box, Button, Paper, TextField } from "@mui/material";
+import { Box, Button, Paper, TextField,Container, Typography} from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,10 @@ const MakeAdmin = () => {
       })
   }
   return (
+    <Container>
+      <Typography variant="h4" component={Box} sx={{my:2}}>
+        Make Admin
+        </Typography>
     <Paper
       component={Box}
       elevation={4}
@@ -53,6 +57,8 @@ const MakeAdmin = () => {
         </Box>
       </Box>
     </Paper>
+    </Container>
+
   );
 };
 

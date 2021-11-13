@@ -7,6 +7,9 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import TableRow from "@mui/material/TableRow";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -56,6 +59,10 @@ export default function MyOrders() {
   };
 
   return (
+    <Container>
+      <Typography variant="h4" component={Box} sx={{my:2}}>
+        My Order
+      </Typography>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: {xs:"auto", md:700}}}  aria-label="customized table">
         <TableHead>
@@ -93,5 +100,7 @@ export default function MyOrders() {
         </TableBody>
       </Table>
     </TableContainer>
+    </Container>
+
   );
 }

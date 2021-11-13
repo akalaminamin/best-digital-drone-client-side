@@ -1,12 +1,15 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import Fab from "@mui/material/Fab";
 import Paper from "@mui/material/Paper";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
+import Box from "@mui/material/Box";
 import TableRow from "@mui/material/TableRow";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -54,6 +57,10 @@ export default function ManageProduct() {
   };
   return (
     <>
+    <Container>
+    <Typography variant="h4" component={Box} sx={{my:2}}>
+        Manage Product
+    </Typography>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: "auto" }} aria-label="customized table">
           <TableHead>
@@ -93,6 +100,7 @@ export default function ManageProduct() {
           </TableBody>
         </Table>
       </TableContainer>
+      </Container>
     </>
   );
 }

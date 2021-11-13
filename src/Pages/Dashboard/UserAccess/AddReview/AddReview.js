@@ -1,4 +1,4 @@
-import { Box, Button, Container, Paper, TextField } from "@mui/material";
+import { Box, Button, Container, Paper, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -18,6 +18,9 @@ const AddReview = () => {
   };
   return (
     <Container>
+        <Typography variant="h4" component={Box} sx={{my:2}}>
+        Add Review
+        </Typography>
       <Paper
         component={Box}
         elevation={4}

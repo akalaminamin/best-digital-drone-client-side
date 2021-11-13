@@ -22,9 +22,9 @@ function App() {
             <PrivateRoute path="/dashboard">
               <Dashboard></Dashboard>
             </PrivateRoute>
-            <PrivateRoute path="/explore">
+            <Route path="/explore">
               <Explore></Explore>
-            </PrivateRoute>
+            </Route>
             <PrivateRoute path="/service/:serviceId">
               <ServiceDetails></ServiceDetails>
             </PrivateRoute>

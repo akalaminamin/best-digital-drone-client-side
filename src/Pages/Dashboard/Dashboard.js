@@ -52,7 +52,7 @@ const {listItemColor, listItemIconColor} = useStyles();
       <List>
         {!admin ? (
           <>
-            <ListItem button component={Link} to={`${url}`}>
+            <ListItem button component={Link} to={`${url}/myOrders`}>
               <ListItemIcon>
                 <ManageAccountsIcon className={listItemIconColor}/>
                 <ListItemText className={listItemColor} primary="My Orders" />
@@ -61,7 +61,7 @@ const {listItemColor, listItemIconColor} = useStyles();
             <ListItem button component={Link} to={`${url}/pay`}>
               <ListItemIcon>
                 <CreditCardIcon className={listItemIconColor}/>
-                <ListItemText className={listItemColor} primary="Pay" />
+                <ListItemText className={listItemColor} primary="Payment" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/addReview`}>
@@ -175,7 +175,7 @@ const {listItemColor, listItemIconColor} = useStyles();
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true, 
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -233,7 +233,7 @@ const {listItemColor, listItemIconColor} = useStyles();
           <Route path={`${path}/addReview`}>
             <AddReview />
           </Route>
-          <Route path={`${path}`}>
+          <Route path={`${path}/myOrders`}>
             <MyOrders />
           </Route>
         </Switch>

@@ -25,7 +25,7 @@ const Service = ({ service }) => {
     <Card sx={{ maxWidth: 345, textAlign: "left" }} className={classes.root}>
       <CardMedia component="img" height="140" image={image_url} alt="drone" />
       <CardContent>
-        <Typography gutterBottom variant="h4" component="div">
+        <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>
         <Typography
