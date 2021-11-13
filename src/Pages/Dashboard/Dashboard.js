@@ -1,7 +1,22 @@
 import React, { useState } from "react";
-import {AppBar, Box, Button, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Avatar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Avatar,
+  Typography,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import MyOrders from "./UserAccess/MyOrders/MyOrders";
 import Pay from "./UserAccess/Pay/Pay";
 import AddReview from "./UserAccess/AddReview/AddReview";
@@ -10,15 +25,15 @@ import MakeAdmin from "./AdminAccess/MakeAdmin/MakeAdmin";
 import ManageAllOrders from "./AdminAccess/ManageAllOrders/ManageAllOrders";
 import ManageProduct from "./AdminAccess/ManageProduct/ManageProduct";
 import useAuth from "../../Hooks/useAuth";
-import AddIcon from '@mui/icons-material/Add';
-import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
-import ReviewsIcon from '@mui/icons-material/Reviews';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
+import AddIcon from "@mui/icons-material/Add";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
+import ReviewsIcon from "@mui/icons-material/Reviews";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
 import AdminRoute from "../../Component/AdminRoute/AdminRoute";
 import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
-import {makeStyles} from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 const drawerWidth = 240;
 
 function Dashboard(props) {
@@ -31,21 +46,23 @@ function Dashboard(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  
-  const useStyles =makeStyles({
-    listItemColor:{
-      color:"#fff",
-      marginLeft:"24px",
-      fontWeight:"700",
+
+  const useStyles = makeStyles({
+    listItemColor: {
+      color: "#fff",
+      marginLeft: "24px",
+      fontWeight: "700",
     },
-    listItemIconColor:{
-      color:"#fff"
-    }
-  })
-const {listItemColor, listItemIconColor} = useStyles();
+    listItemIconColor: {
+      color: "#fff",
+    },
+  });
+  const { listItemColor, listItemIconColor } = useStyles();
   const drawer = (
     <div>
-      <Toolbar sx={{color:"#fff", fontWeight:"bold", textTransform:"upperCase"}} >
+      <Toolbar
+        sx={{ color: "#fff", fontWeight: "bold", textTransform: "upperCase" }}
+      >
         {displayname}
       </Toolbar>
       <Divider />
@@ -54,19 +71,19 @@ const {listItemColor, listItemIconColor} = useStyles();
           <>
             <ListItem button component={Link} to={`${url}/myOrders`}>
               <ListItemIcon>
-                <ManageAccountsIcon className={listItemIconColor}/>
+                <ManageAccountsIcon className={listItemIconColor} />
                 <ListItemText className={listItemColor} primary="My Orders" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/pay`}>
               <ListItemIcon>
-                <CreditCardIcon className={listItemIconColor}/>
+                <CreditCardIcon className={listItemIconColor} />
                 <ListItemText className={listItemColor} primary="Payment" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/addReview`}>
               <ListItemIcon>
-                <ReviewsIcon className={listItemIconColor}/>
+                <ReviewsIcon className={listItemIconColor} />
                 <ListItemText className={listItemColor} primary="Add Review" />
               </ListItemIcon>
             </ListItem>
@@ -75,26 +92,32 @@ const {listItemColor, listItemIconColor} = useStyles();
           <>
             <ListItem button component={Link} to={`${url}/addProduct`}>
               <ListItemIcon>
-                <AddIcon  className={listItemIconColor}/>
+                <AddIcon className={listItemIconColor} />
                 <ListItemText className={listItemColor} primary="Add Product" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/makeAdmin`}>
               <ListItemIcon>
-                <SupervisorAccountIcon className={listItemIconColor}/>
+                <SupervisorAccountIcon className={listItemIconColor} />
                 <ListItemText className={listItemColor} primary="Make Admin" />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/manageAllOrders`}>
               <ListItemIcon>
-                <ManageAccountsIcon className={listItemIconColor}/>
-                <ListItemText className={listItemColor} primary="Manage All Orders" />
+                <ManageAccountsIcon className={listItemIconColor} />
+                <ListItemText
+                  className={listItemColor}
+                  primary="Manage All Orders"
+                />
               </ListItemIcon>
             </ListItem>
             <ListItem button component={Link} to={`${url}/manageProduct`}>
               <ListItemIcon>
-                <ProductionQuantityLimitsIcon className={listItemIconColor}/>
-                <ListItemText className={listItemColor} primary="Manage Product" />
+                <ProductionQuantityLimitsIcon className={listItemIconColor} />
+                <ListItemText
+                  className={listItemColor}
+                  primary="Manage Product"
+                />
               </ListItemIcon>
             </ListItem>
           </>
@@ -112,7 +135,7 @@ const {listItemColor, listItemIconColor} = useStyles();
       <AppBar
         position="fixed"
         sx={{
-          background:"darkblue",
+          background: "darkblue",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
@@ -153,7 +176,7 @@ const {listItemColor, listItemIconColor} = useStyles();
                 <Avatar src={currentUser?.photoURL} />
               ) : (
                 <>
-                <Avatar  sx={{ mx: 2 }}/>
+                  <Avatar sx={{ mx: 2 }} />
                 </>
               )}
             </>
@@ -175,15 +198,15 @@ const {listItemColor, listItemIconColor} = useStyles();
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, 
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              background:"darkblue",
-              color:"#fff"
+              background: "darkblue",
+              color: "#fff",
             },
           }}
         >
@@ -196,8 +219,8 @@ const {listItemColor, listItemIconColor} = useStyles();
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              background:"darkblue",
-              color:"#fff"
+              background: "darkblue",
+              color: "#fff",
             },
           }}
           open

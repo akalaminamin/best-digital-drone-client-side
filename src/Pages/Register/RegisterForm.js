@@ -31,7 +31,7 @@ const RegisterForm = () => {
         component={Box}
         elevation={3}
         p={3}
-        sx={{ display: "flex", alignItems: "center", width: "40%", mx: "auto" }}
+        sx={{ display: "flex", alignItems: "center", width: {xs:"100%", md:"50%"}, mx: "auto" }}
       >
         <Box
           component="form"
