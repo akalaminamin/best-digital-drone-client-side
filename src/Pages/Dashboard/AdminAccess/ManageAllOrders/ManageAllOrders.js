@@ -48,7 +48,12 @@ export default function ManageAllOrders() {
 
   // update status
   const productStatus = ["Pending", "Rejected", "shipped"];
-
+  
+  const handleStatus = (id) =>{
+    orders.status = "Shipped";
+    axios.put(`http://localhost:5000/${id}`, orders.status)
+      .then(res => console.log(res))
+  }
   return (
     <>
     <Container>
@@ -76,7 +81,7 @@ export default function ManageAllOrders() {
               <StyledTableCell align="left">{order.address}</StyledTableCell>
               <StyledTableCell align="left">{order.phone}</StyledTableCell>
               <StyledTableCell align="left">
-              <Button variant="contained" color="warning">
+              <Button variant="contained" color="warning" onClick={() =>handleStatus(order._id)}>
               {order.status}
               </Button>
               </StyledTableCell>

@@ -32,7 +32,7 @@ const Service = ({ service }) => {
           variant="body2"
           sx={{ color: "#7e8285", fontSize: "14px", lineHeight: "25px", mb: 2 }}
         >
-          {desc.slice(1, 100)}
+          {desc.slice(1, 120)}
         </Typography>
         <Typography variant="subtitle2" color="text.success">
           $ {price}

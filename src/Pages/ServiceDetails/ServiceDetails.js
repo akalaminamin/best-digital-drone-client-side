@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ParchaseDialog from "../../Component/ParchaseDialog/ParchaseDialog";
 import NavBar from "../../Shared/NavBar/NavBar";
-
+import Footer from "../../Shared/Footer/Footer";
 const ServiceDetails = () => {
   const { serviceId } = useParams();
   const [serviceDetail, setServiceDetail] = useState([]);
@@ -79,6 +79,7 @@ const ServiceDetails = () => {
         </Grid>
         <ParchaseDialog open={open} setOpen={setOpen} />
       </Container>
+      <Footer />
     </>
   );
 };

@@ -5,7 +5,6 @@ import { Route, Redirect } from "react-router-dom";
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { currentUser, isLoading } = useAuth();
-  console.log(currentUser)
   if(isLoading){
     <h2>Loading...</h2>
     return "";

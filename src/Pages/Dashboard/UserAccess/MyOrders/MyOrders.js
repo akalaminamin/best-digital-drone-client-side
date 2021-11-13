@@ -10,7 +10,8 @@ import TableHead from "@mui/material/TableHead";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import TableRow from "@mui/material/TableRow";
+import TableRow from "@mui/material/Chip";
+import Chip from "@mui/material/TableRow";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
@@ -84,7 +85,9 @@ export default function MyOrders() {
               <StyledTableCell align="left">{order.email}</StyledTableCell>
               <StyledTableCell align="left">{order.address}</StyledTableCell>
               <StyledTableCell align="left">{order.phone}</StyledTableCell>
-              <StyledTableCell align="left">{order.status}</StyledTableCell>
+              <StyledTableCell align="left">
+              <Chip color="warning" label={order.status} />
+                </StyledTableCell>
               <StyledTableCell align="left">
                 <Fab
                   size="small"
